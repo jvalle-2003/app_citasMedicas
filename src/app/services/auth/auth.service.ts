@@ -139,4 +139,32 @@ export class AuthService {
       };
     }
   }
+
+  /**
+   * Registro en el sistema
+   *
+   * @param {string} nombreUsuario - Username
+   * @param {string} correoElectronico - correoElectronico
+   */
+  async register(
+    nombreUsuario: string,
+    correoElectronico: string
+  ): Promise<Result> {
+    try {
+      const credentials = { nombreUsuario, correoElectronico };
+
+      const result = await this.http.post(
+        `${environment.baseUrl}usuarios/register`,
+        credentials
+      );
+
+      return result;
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message,
+        unauthorized: error?.unauthorized,
+      };
+    }
+  }
 }

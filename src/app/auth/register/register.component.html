@@ -1,1 +1,26 @@
-<p>register works!</p>
+<div class="login-container">
+    <p-card header="Registrame" styleClass="card-login">
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="username">Usuario</label>
+                <input id="username" type="text" pInputText
+                    [(ngModel)]="username"
+                    placeholder="Ingrese un nombre de usuario válido">
+            </div>
+            <div class="p-field">
+                <label for="password">Correo Electrónico</label>
+                <input id="password" type="text" pInputText
+                    [(ngModel)]="email"
+                    placeholder="Ingrese un correo electrónico válido">
+            </div>
+            <br>
+            <p>
+                La contraseña se le estará enviando posteriormente al registro.
+            </p>
+            <div class="p-field" style="margin-top: 10px;">
+                <button pButton type="button" label="Registrarme"
+                    icon="pi pi-sign-in" (click)="register()"></button>
+            </div>
+        </div>
+    </p-card>
+</div>
