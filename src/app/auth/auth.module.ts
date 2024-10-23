@@ -12,11 +12,12 @@ import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 @NgModule({
   declarations: [
     LoginComponent,   
-    RegisterComponent, RecoverPasswordComponent, ChangePasswordComponent 
+    RegisterComponent, RecoverPasswordComponent, ChangePasswordComponent, CreateUserComponent 
   ],
   imports: [
     CommonModule,

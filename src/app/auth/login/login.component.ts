@@ -38,6 +38,7 @@ export class LoginComponent {
       this.router.navigate(['pages/home']);
       } else if (result.data?.primerLogueo) {
         this.utilsService.showToast(result.message);
+        this.router.navigate(['auth/createUser']);
         // this.router.navigate(['/auth/restore-password'], {
         //   queryParams: { token: result.data.restoreToken },
         // });
