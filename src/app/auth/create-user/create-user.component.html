@@ -1,1 +1,52 @@
-<p>aqui agregar campos para información del usuario</p>
+<div class="login-container">
+    <p-card header="Datos del Paciente" styleClass="card-login">
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="nombres">Nombres</label>
+                <input id="nombres" type="text" pInputText
+                    [(ngModel)]="paciente.nombres"
+                    placeholder="Ingrese sus nombres">
+            </div>
+            <div class="p-field">
+                <label for="apellidos">Apellidos</label>
+                <input id="apellidos" type="text" pInputText
+                    [(ngModel)]="paciente.apellidos"
+                    placeholder="Ingrese sus apellidos">
+            </div>
+            <div class="p-field">
+                <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                <input id="fechaNacimiento" type="date" pInputText
+                    [(ngModel)]="paciente.fecha_nacimiento">
+            </div>
+            <div class="p-field">
+                <label for="direccion">Dirección</label>
+                <input id="direccion" type="text" pInputText
+                    [(ngModel)]="paciente.direccion"
+                    placeholder="Ingrese su dirección">
+            </div>
+            <div class="p-field">
+                <label for="telefono">Teléfono</label>
+                <input id="telefono" type="text" pInputText
+                    [(ngModel)]="paciente.telefono"
+                    placeholder="Ingrese su teléfono">
+            </div>
+            <div class="p-field">
+                <label for="correoElectronico">Correo Electrónico</label>
+                <input id="correoElectronico" type="email" pInputText
+                    [(ngModel)]="paciente.correo_electronico" disabled="true"
+                    placeholder="Ingrese su correo electrónico">
+            </div>
+            <div class="p-field">
+                <label for="codigoPaciente">Código de Paciente</label>
+                <input id="codigoPaciente" type="text" pInputText
+                    [(ngModel)]="paciente.codigo_paciente" disabled="true"
+                    placeholder="Ingrese su código de paciente">
+            </div>
+            <div class="p-field" style="margin-top: 10px;">
+                <button pButton type="button"
+                    label="Guardar Datos del Paciente"
+                    icon="pi pi-save" (click)="guardarPaciente()"></button>
+            </div>
+        </div>
+    </p-card>
+</div>

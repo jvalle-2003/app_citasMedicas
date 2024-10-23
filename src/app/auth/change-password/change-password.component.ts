@@ -3,7 +3,6 @@ import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/services/utilsService/utils-service.service';
 import { ToastType } from 'src/app/constants/toast.constant';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-change-password',
@@ -11,24 +10,34 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./change-password.component.scss'],
 })
 export class ChangePasswordComponent {
-  newPassword: String = '';
-  confirmPassword: String = '';
+  newPassword: string = '';
+  confirmPassword: string = '';
   idUsuario: number | undefined;
+  data: any = '';
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private utilsService: UtilsService,
-    private route: ActivatedRoute
+    private utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.idUsuario = params['idUsuario'];
-    });
+    this.data = localStorage.getItem('Usuario');
+    if (this.data) {
+      const usuarioData = JSON.parse(this.data);
+      this.idUsuario = usuarioData.id_usuario;
+    }
   }
 
   async changePassword() {
+    if (!this.idUsuario) {
+      this.utilsService.showToast(
+        'El usuario no está autenticado',
+        ToastType.ERROR
+      );
+      return;
+    }
+
     const result = await this.authService.changePassword(
       this.newPassword.trim(),
       this.confirmPassword.trim(),

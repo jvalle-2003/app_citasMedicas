@@ -20,10 +20,6 @@ export class LoginComponent {
   ) {}
 
   async login() {
-    // this.isFormSubmitted = true;
-    // if (!this.loginForm.valid) return;
-    // const value = this.loginForm.value;
-    // this.loading = true;
     const result = await this.authService.login(
       this.username.trim(),
       this.password.trim()
@@ -36,17 +32,12 @@ export class LoginComponent {
     ) {
       this.utilsService.showToast(result.message);
       this.router.navigate(['pages/home']);
-      } else if (result.data?.primerLogueo) {
-        this.utilsService.showToast(result.message);
-        this.router.navigate(['auth/createUser']);
-        // this.router.navigate(['/auth/restore-password'], {
-        //   queryParams: { token: result.data.restoreToken },
-        // });
+    } else if (result.data?.primerLogueo) {
+      this.utilsService.showToast(result.message);
+      this.router.navigate(['auth/createUser']);
     } else if (result.data?.cambiarContraseña) {
       this.utilsService.showToast(result.message);
-      this.router.navigate(['auth/changePassword'], {
-        queryParams: { idUsuario: result.data.id_usuario },
-      });
+      this.router.navigate(['auth/changePassword']);
     } else {
       this.utilsService.showToast(result.message, ToastType.ERROR);
       this.username = '';
