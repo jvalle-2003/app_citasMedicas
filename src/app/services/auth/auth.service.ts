@@ -19,7 +19,7 @@ export class AuthService {
   ) {}
 
   /**
-   * Login with username and save session data in local storage
+   * Login with username 
    *
    * @param {string} nombreUsuario - Username
    * @param {string} password - Password
@@ -48,10 +48,10 @@ export class AuthService {
   }
 
   /**
-   * Login with username and save session data in local storage
+   * Solicita que se reinicie la contaseña del usuario por medio de
+   * el ingreso de su correo electronico
    *
-   * @param {string} nombreUsuario - Username
-   * @param {string} password - Password
+   * @param {string} correoElectronico - email
    */
   async forgotPassword(
     correoElectronico: string,
@@ -61,6 +61,37 @@ export class AuthService {
 
       const result = await this.http.post(
         `${environment.baseUrl}usuarios/restorePassword`,
+        data
+      );
+
+        return result;
+      
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message,
+        unauthorized: error?.unauthorized,
+      };
+    }
+  }
+
+  /**
+   * Cambia la contraseña del usuario
+   *
+   * @param {string} password - password
+   * @param {string} confirmPassword - confirmPassword
+   * @param {number} idUsuario -idUsuario
+   */
+  async changePassword(
+    password: string,
+    confirmPassword: string,
+    id: number | undefined
+  ): Promise<Result> {
+    try {
+      const data = { password,confirmPassword  };
+
+      const result = await this.http.putUrlencoded(
+        `${environment.baseUrl}usuarios/changePassword/` +id ,
         data
       );
 
