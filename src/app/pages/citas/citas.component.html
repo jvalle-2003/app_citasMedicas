@@ -1,0 +1,101 @@
+<div class="card">
+    <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <button pButton label="Nueva Cita" icon="pi pi-plus"
+                class="p-button-success"
+                (click)="mostrarModal('crear')"></button>
+        </div>
+    </p-toolbar>
+
+    <p-table [value]="citas" [paginator]="true" [rows]="10"
+        [responsiveLayout]="'scroll'">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Cita No.</th>
+                <th>Paciente</th>
+                <th>Médico Asignado</th>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cita>
+            <tr>
+                <td>{{ cita.id_cita }}</td>
+                <td>{{ cita.paciente.nombres }} {{ cita.paciente.apellidos
+                    }}</td>
+                <td>{{ cita.medico.nombres }} {{ cita.medico.apellidos }}</td>
+                <td>{{ cita.fechaHora | date: 'yyyy-MM-dd HH:mm' }}</td>
+                <td>{{ cita.motivoConsulta }}</td>
+                <td>
+                    <button pButton icon="pi pi-eye"
+                        class="p-button-rounded p-button-info p-mr-2"
+                        (click)="mostrarModal('ver', cita)"></button>
+                    <button pButton icon="pi pi-pencil"
+                        class="p-button-rounded p-button-warning p-mr-2"
+                        (click)="mostrarModal('editar', cita)"></button>
+                    <button pButton icon="pi pi-trash"
+                        class="p-button-rounded p-button-danger"
+                        (click)="eliminarCita(cita)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td [attr.colspan]="6" class="text-center">
+                    No hay citas disponibles.
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+
+    <!-- Modal para crear/editar/ver cita -->
+    <p-dialog [(visible)]="modalVisible" [header]="modalHeader" [modal]="true"
+        [closable]="true" (onHide)="cerrarModal()">
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="paciente">Paciente</label>
+                <p-dropdown
+                    id="paciente"
+                    [options]="pacientes"
+                    [(ngModel)]="citaSeleccionada.paciente.id_paciente"
+                    [readonly]="modalMode === 'ver'"
+                    placeholder="Seleccione un paciente">
+                </p-dropdown>
+            </div>
+
+            <div class="p-field">
+                <label for="medico">Médico</label>
+                <p-dropdown
+                    id="medico"
+                    [options]="medicos"
+                    [(ngModel)]="citaSeleccionada.medico.id_medico"
+                    [readonly]="modalMode === 'ver'"
+                    placeholder="Seleccione un médico">
+                </p-dropdown>
+            </div>
+
+            <div class="p-field">
+                <label for="fechaHora">Fecha y Hora</label>
+                <p-calendar id="fechaHora"
+                    placeholder="Seleccione la fecha y hora"
+                    [readonlyInput]="modalMode === 'ver'"
+                    [(ngModel)]="citaSeleccionada.fechaHora" [showTime]="true"
+                    [showIcon]="true"
+                    appendTo="body"></p-calendar>
+            </div>
+
+            <div class="p-field">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" rows="3" pInputTextarea
+                    [(ngModel)]="citaSeleccionada.motivoConsulta"
+                    [readonly]="modalMode === 'ver'"></textarea>
+            </div>
+            <div class="p-field" *ngIf="modalMode !== 'ver'">
+                <button pButton label="Guardar" icon="pi pi-check"
+                    (click)="guardarCita()"></button>
+            </div>
+        </div>
+    </p-dialog>
+</div>
