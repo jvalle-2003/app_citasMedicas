@@ -1,28 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpRequestService } from './../httpService/http-service.service';
-import { HttpClient, HttpParams } from '@angular/common/http';
-
-import { environment } from './../../../environments/environment';
 import { Result } from '../../interfaces/result';
-import { Cita } from '../../interfaces/cita'; // Asegúrate de tener la interfaz Cita importada
+import { Paciente } from '../../interfaces/paciente'; // Asegúrate de tener la interfaz Paciente importada
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DatingServiceService {
-  constructor(
-    private router: Router,
-    private http: HttpRequestService,
-    private httpClient: HttpClient
-  ) {}
+export class PacienteService {
+  constructor(private http: HttpRequestService) {}
 
-  // Método para guardar una nueva cita
-  async saveCita(data: any): Promise<Result> {
+  // Método para listar todos los pacientes
+  async listarPacientes(): Promise<Result> {
+    try {
+      const result = await this.http.get(`${environment.baseUrl}pacientes`);
+      return result;
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message,
+        unauthorized: error?.unauthorized,
+      };
+    }
+  }
+
+  // Método para guardar un nuevo paciente
+  async guardarPaciente(
+    idUsuario: number,
+    paciente: Paciente
+  ): Promise<Result> {
     try {
       const result = await this.http.post(
-        `${environment.baseUrl}citas/saveDating`,
-        data
+        `${environment.baseUrl}pacientes/savePacient/${idUsuario}`,
+        paciente
       );
       return result;
     } catch (error: any) {
@@ -34,10 +44,12 @@ export class DatingServiceService {
     }
   }
 
-  // Método para obtener todas las citas
-  async obtenerTodasLasCitas(): Promise<Result> {
+  // Método para obtener un paciente por ID
+  async obtenerPacientePorId(id: number): Promise<Result> {
     try {
-      const result = await this.http.get(`${environment.baseUrl}citas`);
+      const result = await this.http.get(
+        `${environment.baseUrl}pacientes/${id}`
+      );
       return result;
     } catch (error: any) {
       return {
@@ -48,26 +60,12 @@ export class DatingServiceService {
     }
   }
 
-  // Método para obtener una cita por ID
-  async obtenerCitaPorId(id: number): Promise<Result> {
-    try {
-      const result = await this.http.get(`${environment.baseUrl}citas/${id}`);
-      return result;
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error.message,
-        unauthorized: error?.unauthorized,
-      };
-    }
-  }
-
-  // Método para actualizar una cita
-  async actualizarCita(id: number, data: any): Promise<Result> {
+  // Método para actualizar un paciente
+  async actualizarPaciente(id: number, paciente: Paciente): Promise<Result> {
     try {
       const result = await this.http.put(
-        `${environment.baseUrl}citas/${id}`,
-        data
+        `${environment.baseUrl}pacientes/${id}`,
+        paciente
       );
       return result;
     } catch (error: any) {
@@ -79,11 +77,11 @@ export class DatingServiceService {
     }
   }
 
-  // Método para eliminar una cita
-  async eliminarCita(id: number): Promise<Result> {
+  // Método para eliminar un paciente
+  async eliminarPaciente(id: number): Promise<Result> {
     try {
       const result = await this.http.delete(
-        `${environment.baseUrl}citas/${id}`
+        `${environment.baseUrl}pacientes/${id}`
       );
       return result;
     } catch (error: any) {

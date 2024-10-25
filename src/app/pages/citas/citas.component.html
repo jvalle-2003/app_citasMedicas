@@ -47,10 +47,8 @@
                 </td>
             </tr>
         </ng-template>
-
     </p-table>
 
-    <!-- Modal para crear/editar/ver cita -->
     <p-dialog [(visible)]="modalVisible" [header]="modalHeader" [modal]="true"
         [closable]="true" (onHide)="cerrarModal()">
         <div class="p-fluid">
@@ -59,20 +57,9 @@
                 <p-dropdown
                     id="paciente"
                     [options]="pacientes"
-                    [(ngModel)]="citaSeleccionada.paciente.id_paciente"
+                    [(ngModel)]="data.paciente.id_paciente"
                     [readonly]="modalMode === 'ver'"
                     placeholder="Seleccione un paciente">
-                </p-dropdown>
-            </div>
-
-            <div class="p-field">
-                <label for="medico">Médico</label>
-                <p-dropdown
-                    id="medico"
-                    [options]="medicos"
-                    [(ngModel)]="citaSeleccionada.medico.id_medico"
-                    [readonly]="modalMode === 'ver'"
-                    placeholder="Seleccione un médico">
                 </p-dropdown>
             </div>
 
@@ -81,15 +68,28 @@
                 <p-calendar id="fechaHora"
                     placeholder="Seleccione la fecha y hora"
                     [readonlyInput]="modalMode === 'ver'"
-                    [(ngModel)]="citaSeleccionada.fechaHora" [showTime]="true"
+                    [(ngModel)]="data.fechaHora"
+                    [showTime]="true"
                     [showIcon]="true"
-                    appendTo="body"></p-calendar>
+                    appendTo="body"
+                    (onSelect)="getMedicos($event)">
+                </p-calendar>
+            </div>
+            <div class="p-field">
+                <label for="medico">Médico</label>
+                <p-dropdown
+                    id="medico"
+                    [options]="medicos"
+                    [(ngModel)]="data.medico.id_medico"
+                    [readonly]="modalMode === 'ver'"
+                    placeholder="Seleccione un médico">
+                </p-dropdown>
             </div>
 
             <div class="p-field">
                 <label for="descripcion">Descripción</label>
                 <textarea id="descripcion" rows="3" pInputTextarea
-                    [(ngModel)]="citaSeleccionada.motivoConsulta"
+                    [(ngModel)]="data.motivoConsulta"
                     [readonly]="modalMode === 'ver'"></textarea>
             </div>
             <div class="p-field" *ngIf="modalMode !== 'ver'">

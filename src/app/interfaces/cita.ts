@@ -21,7 +21,7 @@ export interface Cita {
     numeroLicencia: string; // Número de licencia del médico
     fechaCreacion: string; // Fecha de creación del registro del médico
   };
-  fechaHora: string; // Fecha y hora de la cita
+  fechaHora: Date; // Fecha y hora de la cita
   motivoConsulta: string; // Motivo de la consulta
   estado: string; // Estado de la cita (ej. "pendiente")
   fechaCreacion: string; // Fecha de creación de la cita
