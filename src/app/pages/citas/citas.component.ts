@@ -14,6 +14,13 @@ import { MedicoService } from 'src/app/services/medicoService/medico-service.ser
 export class CitasComponent implements OnInit {
   citas: Cita[] = [];
   medicos: any[] = [];
+  estados: any[] = [
+    { label: 'Pendiente', value: 'pendiente' },
+    { label: 'Cancelada', value: 'cancelada' },
+    { label: 'Completada', value: 'completada' },
+  ];
+
+  estadoSelecionado = '';
   modalVisible: boolean = false;
   modalHeader: string = '';
   modalMode: 'crear' | 'editar' | 'ver' = 'crear';
@@ -107,6 +114,19 @@ export class CitasComponent implements OnInit {
     }
   }
 
+  getSeverity(estado: string): string {
+    switch (estado) {
+      case 'pendiente':
+        return 'warning';
+      case 'completada':
+        return 'success';
+      case 'cancelada':
+        return 'danger';
+      default:
+        return 'info';
+    }
+  }
+
   mostrarModal(mode: 'crear' | 'editar' | 'ver', cita?: Cita) {
     this.modalMode = mode;
     this.modalHeader =
@@ -116,7 +136,25 @@ export class CitasComponent implements OnInit {
         ? 'Editar Cita'
         : 'Ver Cita';
     this.modalVisible = true;
-    this.citaSeleccionada = cita?.id_cita;
+
+    if (cita && (mode === 'editar' || mode === 'ver')) {
+      this.citaSeleccionada = cita.id_cita;
+      this.data = {
+        paciente: { id_paciente: cita.paciente.id_paciente },
+        medico: { id_medico: cita.medico.id_medico },
+        fechaHora: new Date(cita.fechaHora),
+        motivoConsulta: cita.motivoConsulta,
+        estado: cita.estado,
+      };
+    } else {
+      this.data = {
+        paciente: { id_paciente: 0 },
+        medico: { id_medico: 0 },
+        fechaHora: new Date(),
+        motivoConsulta: '',
+        estado: 'pendiente',
+      };
+    }
   }
 
   cerrarModal() {
@@ -125,8 +163,22 @@ export class CitasComponent implements OnInit {
 
   async guardarCita() {
     try {
+      // Validación de campos vacíos
+      if (
+        !this.data.paciente.id_paciente ||
+        !this.data.medico.id_medico ||
+        !this.data.fechaHora ||
+        !this.data.motivoConsulta
+      ) {
+        this.utilsService.showToast(
+          'Por favor, complete todos los campos obligatorios.',
+          ToastType.ERROR
+        );
+        return; // Salir del método si hay campos vacíos
+      }
+
       if (this.modalMode === 'crear') {
-        this.data.fechaHora = this.fecha;
+        this.data.fechaHora = this.fecha; // Confirma que se está asignando el valor correcto
         const result = await this.datingService.saveCita(this.data);
         if (result.success) {
           this.utilsService.showToast(result.message);
@@ -136,6 +188,7 @@ export class CitasComponent implements OnInit {
         }
       } else if (this.modalMode === 'editar') {
         this.data.fechaHora = this.fecha;
+        console.log('Estado enviado:', this.data.estado); // Verifica el valor en consola
         const result = await this.datingService.actualizarCita(
           this.citaSeleccionada,
           this.data
@@ -148,17 +201,13 @@ export class CitasComponent implements OnInit {
           this.utilsService.showToast(result.message, ToastType.ERROR);
         }
       }
-
+      // Restablece data para limpiar el formulario después de guardar
       this.data = {
-        paciente: {
-          id_paciente: 0,
-        },
-        medico: {
-          id_medico: 0,
-        },
-        fechaHora: new Date() as Date | string, // Acepta tanto Date como string
+        paciente: { id_paciente: 0 },
+        medico: { id_medico: 0 },
+        fechaHora: new Date(),
         motivoConsulta: '',
-        estado: 'pendiente',
+        estado: 'pendiente', // Estado por defecto
       };
     } catch (error) {
       this.utilsService.showToast('Error al guardar la cita', ToastType.ERROR);

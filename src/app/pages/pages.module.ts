@@ -15,12 +15,14 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
   declarations: [HomeComponent, CitasComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
+    TagModule,
     FormsModule,
     DropdownModule,
     TableModule,
