@@ -26,7 +26,7 @@ export class MedicoService {
   }
 
   // Método para guardar un nuevo médico
-  async guardarMedico(medico: Medico): Promise<Result> {
+  async guardarMedico(medico: any): Promise<Result> {
     try {
       const result = await this.http.post(
         `${environment.baseUrl}medicos`,
@@ -57,11 +57,11 @@ export class MedicoService {
   }
 
   // Método para actualizar un médico
-  async actualizarMedico(id: number, medicoDetalles: Medico): Promise<Result> {
+  async actualizarMedico(id: number, data: any): Promise<Result> {
     try {
       const result = await this.http.put(
         `${environment.baseUrl}medicos/${id}`,
-        medicoDetalles
+        data
       );
       return result;
     } catch (error: any) {
