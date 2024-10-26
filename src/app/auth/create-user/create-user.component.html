@@ -29,7 +29,7 @@
                     [(ngModel)]="paciente.direccion"
                     placeholder="Ingrese su dirección">
             </div>
-            
+
             <div class="p-field">
                 <label for="telefono">Teléfono</label>
                 <input id="telefono" type="text" pInputText
@@ -40,9 +40,13 @@
             <div class="p-field">
                 <label for="tempPass">Contraseña Temporal</label>
                 <div class="password-wrapper">
-                    <input id="tempPass" type="{{ showPassword ? 'text' : 'password' }}" pInputText placeholder="Ingrese su Contraseña temporal">
+                    <input id="tempPass"
+                        [(ngModel)]="actualPassword"
+                        type="{{ showPassword ? 'text' : 'password' }}"
+                        pInputText placeholder="Ingrese su Contraseña temporal">
                     <span class="eye-icon" (click)="togglePasswordVisibility()">
-                        <i [ngClass]="showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
+                        <i
+                            [ngClass]="showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
                     </span>
                 </div>
             </div>
@@ -50,9 +54,13 @@
             <div class="p-field">
                 <label for="newpass">Contraseña Nueva</label>
                 <div class="password-wrapper">
-                    <input id="newPass" type="{{ showPassword ? 'text' : 'password' }}" pInputText placeholder="Ingrese su Contraseña Nueva">
+                    <input id="newPass"
+                        [(ngModel)]="newPassword"
+                        type="{{ showPassword ? 'text' : 'password' }}"
+                        pInputText placeholder="Ingrese su Contraseña Nueva">
                     <span class="eye-icon" (click)="togglePasswordVisibility()">
-                        <i [ngClass]="showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
+                        <i
+                            [ngClass]="showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
                     </span>
                 </div>
             </div>
@@ -60,9 +68,13 @@
             <div class="p-field">
                 <label for="newpassval">Valida tu nueva contraseña</label>
                 <div class="password-wrapper">
-                    <input id="newPassval" type="{{ showPassword ? 'text' : 'password' }}" pInputText placeholder="Ingrese de nuevo su contraseña">
+                    <input id="newPassval"
+                        [(ngModel)]="confirmPassword"
+                        type="{{ showPassword ? 'text' : 'password' }}"
+                        pInputText placeholder="Ingrese de nuevo su contraseña">
                     <span class="eye-icon" (click)="togglePasswordVisibility()">
-                        <i [ngClass]="showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
+                        <i
+                            [ngClass]="showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
                     </span>
                 </div>
             </div>

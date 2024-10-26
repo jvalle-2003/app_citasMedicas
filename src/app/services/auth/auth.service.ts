@@ -99,6 +99,38 @@ export class AuthService {
   }
 
   /**
+   * Cambia la contraseña del usuario
+   *
+   * @param {string} currentPassword - password
+   * @param {string} password - password
+   * @param {string} confirmPassword - confirmPassword
+   * @param {number} idUsuario -idUsuario
+   */
+  async changePasswordRegister(
+    currentPassword: string,
+    newPassword: string,
+    confirmNewPassword: string,
+    id: number | undefined
+  ): Promise<Result> {
+    try {
+      const data = { currentPassword, newPassword, confirmNewPassword };
+
+      const result = await this.http.putUrlencoded(
+        `${environment.baseUrl}usuarios/changePasswordRegister/` + id,
+        data
+      );
+
+      return result;
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message,
+        unauthorized: error?.unauthorized,
+      };
+    }
+  }
+
+  /**
    * Guarda los datos de un paciente en el sistema.
    *
    * Este método envía una solicitud POST al backend para guardar la información
