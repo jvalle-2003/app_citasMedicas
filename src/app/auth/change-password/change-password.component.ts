@@ -10,6 +10,13 @@ import { ToastType } from 'src/app/constants/toast.constant';
   styleUrls: ['./change-password.component.scss'],
 })
 export class ChangePasswordComponent {
+  // Propiedad para controlar la visibilidad de la contraseña
+  showPassword: boolean = false;
+
+  // Método para alternar la visibilidad de la contraseña
+  togglePasswordVisibility() {
+      this.showPassword = !this.showPassword;
+  }
   newPassword: string = '';
   confirmPassword: string = '';
   idUsuario: number | undefined;

@@ -1,5 +1,10 @@
 <div class="login-container">
-    <p-card header="Datos del Paciente" styleClass="card-login">
+    <div class="background"></div>
+    <div class="overlay"></div>
+    <div class="card-px">
+        <div class="icon-wrapper">
+            <i class="pi pi-user-plus"></i>
+        </div>
         <div class="p-fluid">
             <div class="p-field">
                 <label for="nombres">Nombres</label>
@@ -24,11 +29,42 @@
                     [(ngModel)]="paciente.direccion"
                     placeholder="Ingrese su dirección">
             </div>
+            
             <div class="p-field">
                 <label for="telefono">Teléfono</label>
                 <input id="telefono" type="text" pInputText
                     [(ngModel)]="paciente.telefono"
                     placeholder="Ingrese su teléfono">
+            </div>
+            <!-- Pendiente de crear y aggregar model -->
+            <div class="p-field">
+                <label for="tempPass">Contraseña Temporal</label>
+                <div class="password-wrapper">
+                    <input id="tempPass" type="{{ showPassword ? 'text' : 'password' }}" pInputText placeholder="Ingrese su Contraseña temporal">
+                    <span class="eye-icon" (click)="togglePasswordVisibility()">
+                        <i [ngClass]="showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
+                    </span>
+                </div>
+            </div>
+            <!-- Pendiente de crear y aggregar model -->
+            <div class="p-field">
+                <label for="newpass">Contraseña Nueva</label>
+                <div class="password-wrapper">
+                    <input id="newPass" type="{{ showPassword ? 'text' : 'password' }}" pInputText placeholder="Ingrese su Contraseña Nueva">
+                    <span class="eye-icon" (click)="togglePasswordVisibility()">
+                        <i [ngClass]="showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
+                    </span>
+                </div>
+            </div>
+            <!-- Pendiente de crear y aggregar model -->
+            <div class="p-field">
+                <label for="newpassval">Valida tu nueva contraseña</label>
+                <div class="password-wrapper">
+                    <input id="newPassval" type="{{ showPassword ? 'text' : 'password' }}" pInputText placeholder="Ingrese de nuevo su contraseña">
+                    <span class="eye-icon" (click)="togglePasswordVisibility()">
+                        <i [ngClass]="showPassword ? 'pi pi-eye' : 'pi pi-eye-slash'"></i>
+                    </span>
+                </div>
             </div>
             <div class="p-field">
                 <label for="correoElectronico">Correo Electrónico</label>
@@ -45,8 +81,9 @@
             <div class="p-field" style="margin-top: 10px;">
                 <button pButton type="button"
                     label="Guardar Datos del Paciente"
-                    icon="pi pi-save" (click)="guardarPaciente()"></button>
+                    icon="pi pi-save" (click)="guardarPaciente()"
+                    class="login-button"></button>
             </div>
         </div>
-    </p-card>
+    </div>
 </div>

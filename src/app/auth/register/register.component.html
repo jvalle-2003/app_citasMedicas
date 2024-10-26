@@ -1,5 +1,11 @@
 <div class="login-container">
-    <p-card header="Registrame" styleClass="card-login">
+    <div class="background"></div>
+    <div class="overlay"></div> <!-- Capa de desenfoque y oscuridad -->
+    
+    <div class="card-login">
+        <div class="icon-wrapper">
+            <i class="pi pi-user-plus"></i>
+        </div>
         <div class="p-fluid">
             <div class="p-field">
                 <label for="username">Usuario</label>
@@ -22,5 +28,5 @@
                     icon="pi pi-sign-in" (click)="register()"></button>
             </div>
         </div>
-    </p-card>
+    </div>
 </div>

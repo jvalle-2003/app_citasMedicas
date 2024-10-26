@@ -1,0 +1,146 @@
+<div class="background"></div> <!-- Fondo de la sidebar -->
+<div class="sidebar d-flex flex-column flex-shrink-0">
+  <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+    <li class="nav-item">
+      <a href="/pages/home" class="nav-link py-3 border-bottom rounded-0" title="Inicio" data-bs-toggle="tooltip" data-bs-placement="right">
+        <i class="bi bi-hospital-fill" style="font-size: 1.5rem;"></i>
+      </a>
+    </li>
+    <li>
+      <a href="/pages/dating" class="nav-link py-3 border-bottom rounded-0" title="Crear Cita" data-bs-toggle="tooltip" data-bs-placement="right">
+        <i class="bi bi-calendar-plus" style="font-size: 1.5rem;"></i>
+      </a>
+    </li>
+    <li>
+      <a href="/pages/appointment" class="nav-link active py-3 border-bottom rounded-0" aria-current="page"  title="Consultas" data-bs-toggle="tooltip" data-bs-placement="right">
+        <i class="bi bi-file-earmark-medical-fill" style="font-size: 1.5rem;"></i>
+      </a>
+    </li>
+    <li>
+        <a href="/pages/medicine" class="nav-link py-3 border-bottom rounded-0" title="Medicamentos" data-bs-toggle="tooltip" data-bs-placement="right">
+          <i class="bi bi-capsule-pill" style="font-size: 1.5rem;"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/pages/prescription" class="nav-link py-3 border-bottom rounded-0" title="Recetas Medicas" data-bs-toggle="tooltip" data-bs-placement="right">
+          <i class="bi bi-file-medical" style="font-size: 1.5rem;"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/pages/doctors"class="nav-link py-3 border-bottom rounded-0"  title="Medicos" data-bs-toggle="tooltip" data-bs-placement="right">
+          <i class="bi bi-heart-pulse-fill" style="font-size: 1.5rem;"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/pages/px" class="nav-link py-3 border-bottom rounded-0" title="Pacientes" data-bs-toggle="tooltip" data-bs-placement="right">
+          <i class="bi bi-people-fill" style="font-size: 1.5rem;"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/pages/unit" class="nav-link py-3 border-bottom rounded-0" title="Unidad de Medidad" data-bs-toggle="tooltip" data-bs-placement="right">
+          <i class="bi bi-eyedropper" style="font-size: 1.5rem;"></i>
+        </a>
+      </li>
+      <li>
+        <a href="/pages/users" class="nav-link py-3 border-bottom rounded-0" title="Usuarios" data-bs-toggle="tooltip" data-bs-placement="right">
+          <i class="bi bi-person-lines-fill" style="font-size: 1.5rem;"></i>
+        </a>
+      </li>
+  </ul>
+  <div class="dropdown border-top mt-auto">
+    <a href="#" class="d-flex align-items-center justify-content-center p-3 text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
+    </a>
+    <ul class="dropdown-menu text-small shadow" style="position: absolute; z-index: 1050;"> <!-- Estilos añadidos -->
+      <li><a class="dropdown-item" href="#">New project...</a></li>
+      <li><a class="dropdown-item" href="#">Settings</a></li>
+      <li><a class="dropdown-item" href="#">Profile</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Sign out</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="card" style="margin-left: 4.5rem;"> <!-- Agregado margin-left para no superponer la sidebar -->
+    <p-toolbar>
+      <div class="p-toolbar-group-left">
+        <h5 class="m-0">Consultas Médicas</h5> <!-- Título agregado -->
+      </div>
+    </p-toolbar>
+  <!-- Pendiete de cambios -->
+    <p-table
+      
+      [paginator]="true"
+      [rows]="10"
+      [responsiveLayout]="'scroll'">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Consulta No.</th>
+          <th>Cita Correspondente</th>
+          <th>Diagnostico</th>
+          <th>Tratamiento</th>
+          <th>Fecha de Consulta</th>
+          <th>Proxima Consulta</th>
+          <th>Fecha</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-cita>
+        <tr>
+          <td>{{ cita.id_cita }}</td>
+          <td>{{ cita.paciente.nombres }} {{ cita.paciente.apellidos }}</td>
+          <td>{{ cita.medico.nombres }} {{ cita.medico.apellidos }}</td>
+          <td>{{ cita.fechaHora | date: 'yyyy-MM-dd HH:mm' }}</td>
+          <td>{{ cita.motivoConsulta }}</td>
+          <td>
+            <!--[severity]="getSeverity(consulta.estado)"-->
+            <p-tag
+              
+              [value]="cita.estado">
+            </p-tag>
+          </td>
+          <td>
+            <!--(click)="mostrarModal('ver', cita)-->
+            <button
+              pButton
+              icon="pi pi-eye"
+              class="p-button-rounded p-button-info p-mr-2"
+              ></button>
+              <!--(click)="mostrarModal('editar', cita)"-->
+            <button
+              pButton
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-warning p-mr-2"
+              ></button>
+               <!--(click)="eliminarCita(cita)"-->
+            <button
+              pButton
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-danger"
+              ></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [attr.colspan]="7" class="text-center">
+            No hay consultas disponibles.
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <!--Se elimino el P-dialog -->
+  
+
+  
+    <!-- Botón de Nueva Cita en la parte inferior derecha -->
+     <!--(click)="mostrarModal('crear')"-->
+    <button
+      pButton
+      label="Nueva Consulta"
+      icon="pi pi-plus"
+      class="p-button-success"
+      style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"
+      >
+    </button>
+  </div>

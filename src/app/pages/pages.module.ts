@@ -16,9 +16,16 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TagModule } from 'primeng/tag';
-
+import { MegaMenuModule } from 'primeng/megamenu';
+import { ConsultasComponent } from './consultas/consultas.component';
+import { MedicamentosComponent } from './medicamentos/medicamentos.component';
+import { RecetasComponent } from './recetas/recetas.component';
+import { MedicosComponent } from './medicos/medicos.component';
+import { PacientesComponent } from './pacientes/pacientes.component';
+import { UnidadesmedidaComponent } from './unidadesmedida/unidadesmedida.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 @NgModule({
-  declarations: [HomeComponent, CitasComponent],
+  declarations: [HomeComponent, CitasComponent, ConsultasComponent, MedicamentosComponent, RecetasComponent, MedicosComponent, PacientesComponent, UnidadesmedidaComponent, UsuariosComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
@@ -33,6 +40,8 @@ import { TagModule } from 'primeng/tag';
     CalendarModule,
     InputTextareaModule,
     ToastModule,
+    MegaMenuModule
   ],
+    
 })
 export class PagesModule {}

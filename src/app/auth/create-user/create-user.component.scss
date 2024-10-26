@@ -1,12 +1,182 @@
+$primary-color: #ff000d;
+$secondary-color: rgba(0, 0, 0, 0.4);
+$background-color: #1e1e1e;
+
+// Asegúrate de incluir la fuente Montserrat
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+/* Eliminación de márgenes globales y configuración de box-sizing */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Evita el scroll horizontal no deseado */
+  font-family: 'Montserrat', sans-serif; /* Aplica Montserrat */
+  background-color: $background-color; /* Fondo por defecto del cuerpo */
+}
+
+/* Aplica box-sizing globalmente */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Estilos específicos del contenedor de login */
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    filter: blur(80px);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $secondary-color;
+      z-index: 2;
+    }
+  }
+
+  .background {
+    position: fixed; /* Cambiado a fixed para ocupar toda la pantalla */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $background-color;
+    z-index: 0;
+  }
+
+  .card-px {
+    position: relative;
+    z-index: 3;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 40px 30px;
+    width: 90%;
+    max-width: 400px;
+    font-family: 'Montserrat', sans-serif;
+    .icon-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px; /* Ajusta según sea necesario */
+      height: 100px; /* Ajusta según sea necesario */
+      background-color: rgba(255, 255, 255, 0.2); /* Fondo del icono */
+      border-radius: 50%; /* Hacer el contenedor circular */
+      margin: 0 auto 20px auto; /* Centra el icono y deja espacio debajo */
+    }
+
+    .icon-wrapper i {
+      font-size: 48px; /* Tamaño del icono */
+      color: $primary-color; /* Color del icono */
+    }
+
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .p-field {
+      margin-bottom: 20px;
+
+      label {
+        display: block;
+        color: #ccc;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        font-size: 1rem;
+
+        &::placeholder {
+          color: #bbb;
+        }
+      }
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff000d;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-family: 'Montserrat', sans-serif;
+
+      &:hover {
+        background-color: darken(#ff000d, 20%);
+      }
+    }
+    .password-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
   }
   
-  .card-login {
-    width: 300px;
+  .password-wrapper input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
   }
   
+  .eye-icon {
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      color: #666; /* Cambia el color según tus necesidades */
+  }
+    .links-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+
+      .login-link {
+        color: #bbb;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+}

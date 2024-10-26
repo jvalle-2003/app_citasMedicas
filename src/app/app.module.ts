@@ -5,7 +5,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr'; // Asegúrate de impor
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module'; 
-import { DialogService } from 'primeng/dynamicdialog'; // Importa DialogService aquí
+import { DialogService } from 'primeng/dynamicdialog';
+import { MenuModule } from 'primeng/menu';
 // Asegúrate de que esta ruta sea correcta
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { DialogService } from 'primeng/dynamicdialog'; // Importa DialogService 
   ],
   imports: [
     BrowserModule,
+    MenuModule,
     BrowserAnimationsModule, // Asegúrate de incluirlo
     ToastrModule.forRoot({
       progressBar: true,

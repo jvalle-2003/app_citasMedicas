@@ -10,6 +10,13 @@ import { ToastType } from 'src/app/constants/toast.constant';
   styleUrls: ['./create-user.component.scss'],
 })
 export class CreateUserComponent {
+      // Propiedad para controlar la visibilidad de la contraseña
+      showPassword: boolean = false;
+
+      // Método para alternar la visibilidad de la contraseña
+      togglePasswordVisibility() {
+          this.showPassword = !this.showPassword;
+      }
   data: any = '';
   paciente = {
     id_usuario: 0,

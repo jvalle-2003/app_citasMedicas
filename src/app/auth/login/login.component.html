@@ -1,28 +1,47 @@
-<div class="login-container">
-    <p-card header="Iniciar Sesión" styleClass="card-login">
-        <div class="p-fluid">
-            <div class="p-field">
-                <label for="username">Usuario</label>
-                <input id="username" type="text" pInputText
-                    [(ngModel)]="username" placeholder="Ingrese su usuario">
-            </div>
-            <div class="p-field">
-                <label for="password">Contraseña</label>
-                <input id="password" type="password" pInputText
-                    [(ngModel)]="password" placeholder="Ingrese su contraseña">
-            </div>
-            <div class="p-field" style="margin-top: 10px;">
-                <button pButton type="button" label="Iniciar Sesión"
-                    icon="pi pi-sign-in" (click)="login()"></button>
-            </div>
-            <div class="p-field" style="margin-top: 10px;">
-                <a [routerLink]="['/auth/forgotPassword']"
-                    routerLinkActive="active">Olvidé mi contraseña</a>
-            </div>
-            <div class="p-field" style="margin-top: 10px;">
-                <a [routerLink]="['/auth/register']"
-                    routerLinkActive="active">Crear cuenta</a>
-            </div>
+<div class="login-container"> 
+    <div class="background"></div>
+    <div class="overlay"></div> <!-- Capa de desenfoque y oscuridad -->
+    
+    <div class="card-login">
+        <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48px" height="48px">
+                <path d="M19 6h-2.184C16.403 4.757 15.307 4 14 4h-4c-1.307 0-2.403.757-2.816 2H5c-1.103 0-2 .897-2 2v11c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2zM10 5h4c.552 0 1 .448 1 1h-6c0-.552.448-1 1-1zM5 19V8h14l.002 11H5z"></path>
+                <path d="M13 10h-2v3H8v2h3v3h2v-3h3v-2h-3z"></path>
+            </svg>
         </div>
-    </p-card>
-</div>
+      <div class="p-field">
+        <label for="username">Usuario</label>
+        <input 
+          id="username" 
+          type="text" 
+          pInputText
+          [(ngModel)]="username" 
+          placeholder="Ingrese su usuario" 
+        />
+      </div>
+      <div class="p-field">
+        <label for="password">Contraseña</label>
+        <input 
+          id="password" 
+          type="password" 
+          pInputText
+          [(ngModel)]="password" 
+          placeholder="Ingrese su contraseña" 
+        />
+      </div>
+      <div class="p-field" style="margin-top: 10px;">
+        <button 
+          pButton 
+          type="button" 
+          label="Iniciar Sesión"
+          icon="pi pi-sign-in" 
+          (click)="login()"
+          class="login-button">
+        </button>
+      </div>
+      <div class="links-container" style="margin-top: 10px;">
+        <a [routerLink]="['/auth/forgotPassword']" routerLinkActive="active" class="login-link">Olvidé mi contraseña</a>
+        <a [routerLink]="['/auth/register']" routerLinkActive="active" class="login-link">Crear cuenta</a>
+      </div>
+    </div>
+  </div>   
