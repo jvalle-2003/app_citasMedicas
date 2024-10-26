@@ -27,7 +27,7 @@ export class PacienteService {
   // Método para guardar un nuevo paciente
   async guardarPaciente(
     idUsuario: number,
-    paciente: Paciente
+    paciente: any
   ): Promise<Result> {
     try {
       const result = await this.http.post(
@@ -61,7 +61,7 @@ export class PacienteService {
   }
 
   // Método para actualizar un paciente
-  async actualizarPaciente(id: number, paciente: Paciente): Promise<Result> {
+  async actualizarPaciente(id: number, paciente: any): Promise<Result> {
     try {
       const result = await this.http.put(
         `${environment.baseUrl}pacientes/${id}`,
