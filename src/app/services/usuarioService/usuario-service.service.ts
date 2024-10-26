@@ -7,21 +7,16 @@ import { environment } from './../../../environments/environment';
 import { Result } from '../../interfaces/result';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsuarioServiceService {
-
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private http: HttpRequestService,
-    private httpClient: HttpClient) { 
-    
-  }
-  async registerAdmin(
-  data:any
-  ): Promise<Result> {
+    private httpClient: HttpClient
+  ) {}
+  async registerAdmin(data: any): Promise<Result> {
     try {
-     
-
       const result = await this.http.post(
         `${environment.baseUrl}usuarios/registerAdmin`,
         data
@@ -40,6 +35,21 @@ export class UsuarioServiceService {
   async obtenerTodosLosUsuarios(): Promise<Result> {
     try {
       const result = await this.http.get(`${environment.baseUrl}usuarios`);
+      return result;
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message,
+        unauthorized: error?.unauthorized,
+      };
+    }
+  }
+
+  async obtenerTodosLosUsuariosMedicos(): Promise<Result> {
+    try {
+      const result = await this.http.get(
+        `${environment.baseUrl}usuarios/medicos`
+      );
       return result;
     } catch (error: any) {
       return {
@@ -71,7 +81,7 @@ export class UsuarioServiceService {
         `${environment.baseUrl}usuarios/${id}`
       );
       console.log(result);
-      
+
       return result;
     } catch (error: any) {
       return {

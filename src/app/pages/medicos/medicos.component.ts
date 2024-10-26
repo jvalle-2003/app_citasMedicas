@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UtilsService } from 'src/app/services/utilsService/utils-service.service';
 import { Medico } from '../../interfaces/medico';
 import { ToastType } from 'src/app/constants/toast.constant';
@@ -8,12 +8,11 @@ import { UsuarioServiceService } from 'src/app/services/usuarioService/usuario-s
 @Component({
   selector: 'app-medicos',
   templateUrl: './medicos.component.html',
-  styleUrls: ['./medicos.component.scss']
+  styleUrls: ['./medicos.component.scss'],
 })
 export class MedicosComponent {
   medico: Medico[] = [];
   usuario: any[] = [];
-
 
   modalVisible: boolean = false;
   modalHeader: string = '';
@@ -21,37 +20,32 @@ export class MedicosComponent {
   fecha: string = '';
   medicoSeleccionado: any = 0;
 
-
   data = {
     idUsuario: 0,
-    especialidad:"",
-    numeroLicencia:"",
-    apellidos:"",
-    nombres:"",
-
+    especialidad: '',
+    numeroLicencia: '',
+    apellidos: '',
+    nombres: '',
   };
   constructor(
     private utilsService: UtilsService,
     private usuarioService: UsuarioServiceService,
-    private medicoService: MedicoService,
-    
-    
+    private medicoService: MedicoService
   ) {
     this.cargarUsuarios();
   }
 
- 
-
   ngOnInit(): void {
     this.listarMedicos();
-    
   }
   async cargarUsuarios() {
     try {
-      const result = await this.usuarioService.obtenerTodosLosUsuarios();
+      const result = await this.usuarioService.obtenerTodosLosUsuariosMedicos();
+      console.log(result);
+
       if (result.success) {
         this.usuario = result.data.map((usuario: any) => ({
-          label: `${usuario.id_usuario}`,
+          label: `${usuario.id_usuario}` + ' | ' + `${usuario.nombreUsuario} `,
           value: usuario.id_usuario,
         }));
       }
@@ -62,7 +56,6 @@ export class MedicosComponent {
       );
     }
   }
-
 
   formatFechaHora(date: Date): string {
     const year = date.getFullYear();
@@ -79,13 +72,16 @@ export class MedicosComponent {
   async listarMedicos() {
     try {
       const result = await this.medicoService.listarMedicos();
+      console.log(result);
+
       this.medico = result.data;
     } catch (error) {
-      this.utilsService.showToast('Error al cargar los Medicos', ToastType.ERROR);
+      this.utilsService.showToast(
+        'Error al cargar los Medicos',
+        ToastType.ERROR
+      );
     }
   }
-
- 
 
   mostrarModal(mode: 'crear' | 'editar' | 'ver', medico?: Medico) {
     this.modalMode = mode;
@@ -100,20 +96,19 @@ export class MedicosComponent {
     if (medico && (mode === 'editar' || mode === 'ver')) {
       this.medicoSeleccionado = medico.id_medico;
       this.data = {
-        idUsuario: medico.idUsuario ,
-        especialidad:medico.especialidad,
-        numeroLicencia:medico.numeroLicencia,
-        apellidos:medico.apellidos,
-        nombres:medico.nombres
-    
+        idUsuario: medico.idUsuario,
+        especialidad: medico.especialidad,
+        numeroLicencia: medico.numeroLicencia,
+        apellidos: medico.apellidos,
+        nombres: medico.nombres,
       };
     } else {
       this.data = {
         idUsuario: 0,
-        especialidad:"",
-        numeroLicencia:"",
-        apellidos:"",
-        nombres:""
+        especialidad: '',
+        numeroLicencia: '',
+        apellidos: '',
+        nombres: '',
       };
     }
   }
@@ -162,15 +157,17 @@ export class MedicosComponent {
       }
       // Restablece data para limpiar el formulario después de guardar
       this.data = {
-        idUsuario:  0 ,
-        especialidad:"",
-        numeroLicencia:"",
-        apellidos:"",
-        nombres:""
-    
+        idUsuario: 0,
+        especialidad: '',
+        numeroLicencia: '',
+        apellidos: '',
+        nombres: '',
       };
     } catch (error) {
-      this.utilsService.showToast('Error al guardar el medico', ToastType.ERROR);
+      this.utilsService.showToast(
+        'Error al guardar el medico',
+        ToastType.ERROR
+      );
     }
 
     this.cerrarModal();
@@ -179,21 +176,23 @@ export class MedicosComponent {
   async eliminarMedico(medico: Medico) {
     try {
       console.log(medico.id_medico);
-      
+
       const result = await this.medicoService.eliminarMedico(medico.id_medico);
       console.log(result);
-      
-      if(result.success){
+
+      if (result.success) {
         console.log(result);
-        
+
         this.utilsService.showToast(result.message);
-      } else{
-        this.utilsService.showToast(result.message,ToastType.ERROR);
+      } else {
+        this.utilsService.showToast(result.message, ToastType.ERROR);
       }
       this.listarMedicos();
     } catch (error) {
-      this.utilsService.showToast('Error al eliminar el medico', ToastType.ERROR);
+      this.utilsService.showToast(
+        'Error al eliminar el medico',
+        ToastType.ERROR
+      );
     }
   }
-
 }

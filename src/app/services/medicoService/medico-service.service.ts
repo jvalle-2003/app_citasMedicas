@@ -15,6 +15,8 @@ export class MedicoService {
   async listarMedicos(): Promise<Result> {
     try {
       const result = await this.http.get(`${environment.baseUrl}medicos`);
+      console.log(result);
+
       return result;
     } catch (error: any) {
       return {
